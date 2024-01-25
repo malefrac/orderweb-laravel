@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        $this->call(RoleSeeder::class);
+        /*$this->call(RoleSeeder::class);
         $this->call(CausalSeeder::class);
         $this->call(ObservationSeeder::class);
         $this->call(TypeActivitySeeder::class);
@@ -44,6 +44,10 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //se crea un técnico sin especialidad
-        Technician::factory(2)->create();
+        Technician::factory(2)->create();*/
+
+        /*$this->call(TestTechnicianSeeder::class);*/
+
+        $this->call(TestActivitySeeder::class);
     }
 }
