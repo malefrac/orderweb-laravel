@@ -1,10 +1,10 @@
 @extends('templates.base')
-@section('title', 'Listado causal')
-@section('header', 'Listado causal')
+@section('title', 'Listado de actividades')
+@section('header', 'Listado de actividades')
 @section('content')
     <div class="row">
         <div class="col-lg-12 mb-4 d-grip gap-2 d--md-block">
-            <a href="{{ route('causal.create') }}" class="btn btn-primary">Crear</a>
+            <a href="{{ route('activity.create') }}" class="btn btn-primary">Crear</a>
         </div>
     </div>
 
@@ -17,13 +17,18 @@
                     <tr>
                         <th>Id</th>
                         <th>Descripción</th>
-                        <th>Acciones</th>
+                        <th>Horas</th>
+                        <th>Técnico</th>
+                        <th>Tipo</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>1</td>
-                        <td>Causal de prueba</td>
+                        <td>Actividad de prueba</td>
+                        <td>8</td>
+                        <td>Arnulfo Archundia</td>
+                        <td>REPARACIÓN</td>
                         <td>
                             <a href="#" title="editar" 
                                 class="btn btn-info btn-circle btn-sm">
@@ -47,3 +52,4 @@
 @section('scripts')
     <script src="{{ asset('js/general.js') }}"></script>
 @endsection
+
