@@ -44,12 +44,12 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //se crea un técnico sin especialidad
-        Technician::factory(2)->create();*/
+        Technician::factory(2)->create();
 
-        /*$this->call(TestTechnicianSeeder::class);*/
+        $this->call(TestTechnicianSeeder::class);
 
-        //$this->call(TestActivitySeeder::class);
-        //$this->call(TestOrderSeeder::class);
-        $this->call(TestOrderActivitySeeder::class);
+       //$this->call(TestActivitySeeder::class);
+        $this->call(TestOrderSeeder::class);
+        $this->call(TestOrderActivitySeeder::class);*/
     }
 }
