@@ -1,5 +1,13 @@
 <?php
 
+use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\CausalController;
+use App\Http\Controllers\ObservationController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TechnicianController;
+use App\Http\Controllers\TypeActivityController;
+use App\Models\Observation;
+use App\Models\TypeActivity;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -21,77 +29,63 @@ Route::get('/test2', function () {
     return view('test2');
 })->name('test2');
 
-Route::get('/causal/create', function () {
-    return view('causal.create');
-})->name('causal.create');
+Route::prefix('causal')->group(function(){
+    Route::get('/index', [CausalController::class, 'index'])->name('causal.index');
+    Route::get('/create', [CausalController::class, 'create'])->name('causal.create');
+    Route::get('/edit/{id}', [CausalController::class, 'edit'])->name('causal.edit');
+    Route::post('/create', [CausalController::class, 'store'])->name('causal.store'); //se usa post en la ruta store para almacenar registros nuevos
+    Route::put('/edit/{id}', [CausalController::class, 'update'])->name('causal.update'); //se usa put en la ruta update para actualizar registros
+    Route::get('/destroy/{id}', [CausalController::class, 'destroy'])->name('causal.destroy'); //se usa get en la ruta destroy para eliminar registros
 
-Route::get('/causal/index', function () {
-    return view('causal.index');
-})->name('causal.index');
+});
 
-Route::get('/causal/edit', function () {
-    return view('causal.edit');
-})->name('causal.edit');
+Route::prefix('observation')->group(function(){
+    Route::get('/index', [ObservationController::class, 'index'])->name('observation.index');
+    Route::get('/create', [ObservationController::class, 'create'])->name('observation.create');
+    Route::get('/edit/{id}', [ObservationController::class, 'edit'])->name('observation.edit');
+    Route::post('/create', [ObservationController::class, 'store'])->name('observation.store'); //se usa post en la ruta store para almacenar registros nuevos
+    Route::put('/edit/{id}', [ObservationController::class, 'update'])->name('observation.update'); //se usa put en la ruta update para actualizar registros
+    Route::get('/destroy/{id}', [ObservationController::class, 'destroy'])->name('observation.destroy'); //se usa get en la ruta destroy para eliminar registros
+});
 
-Route::get('/observation/create', function () {
-    return view('observation.create');
-})->name('observation.create');
+Route::prefix('type_activity')->group(function(){
+    Route::get('/index', [TypeActivityController::class, 'index'])->name('type_activity.index');
+    Route::get('/create', [TypeActivityController::class, 'create'])->name('type_activity.create');
+    Route::get('/edit/{id}', [TypeActivityController::class, 'edit'])->name('type_activity.edit');
+    Route::post('/create', [TypeActivityController::class, 'store'])->name('type_activity.store'); //se usa post en la ruta store para almacenar registros nuevos
+    Route::put('/edit/{id}', [TypeActivityController::class, 'update'])->name('type_activity.update'); //se usa put en la ruta update para actualizar registros
+    Route::get('/destroy/{id}', [TypeActivityController::class, 'destroy'])->name('type_activity.destroy'); //se usa get en la ruta destroy para eliminar registros
+});
 
-Route::get('/observation/index', function () {
-    return view('observation.index');
-})->name('observation.index');
+Route::prefix('activity')->group(function(){
+    Route::get('/index', [ActivityController::class, 'index'])->name('activity.index');
+    Route::get('/create', [ActivityController::class, 'create'])->name('activity.create');
+    Route::get('/edit/{id}', [ActivityController::class, 'edit'])->name('activity.edit');
+    Route::post('/create', [ActivityController::class, 'store'])->name('activity.store'); //se usa post en la ruta store para almacenar registros nuevos
+    Route::put('/edit/{id}', [ActivityController::class, 'update'])->name('activity.update'); //se usa put en la ruta update para actualizar registros
+    Route::get('/destroy/{id}', [ActivityController::class, 'destroy'])->name('activity.destroy'); //se usa get en la ruta destroy para eliminar registros
+});
 
-Route::get('/observation/edit', function () {
-    return view('observation.edit');
-})->name('observation.edit');
+Route::prefix('technician')->group(function(){
+    Route::get('/index', [TechnicianController::class, 'index'])->name('technician.index');
+    Route::get('/create', [TechnicianController::class, 'create'])->name('technician.create');
+    Route::get('/edit/{document}', [TechnicianController::class, 'edit'])->name('technician.edit');
+    Route::post('/create', [TechnicianController::class, 'store'])->name('technician.store'); //se usa post en la ruta store para almacenar registros nuevos
+    Route::put('/edit/{document}', [TechnicianController::class, 'update'])->name('technician.update'); //se usa put en la ruta update para actualizar registros
+    Route::get('/destroy/{document}', [TechnicianController::class, 'destroy'])->name('technician.destroy'); //se usa get en la ruta destroy para eliminar registros
+});
 
-Route::get('/type_activity/create', function () {
-    return view('type_activity.create');
-})->name('type_activity.create');
+Route::prefix('order')->group(function(){
+    Route::get('/index', [OrderController::class, 'index'])->name('order.index');
+    Route::get('/create', [OrderController::class, 'create'])->name('order.create');
+    Route::get('/edit/{document}', [OrderController::class, 'edit'])->name('order.edit');
+    Route::post('/create', [OrderController::class, 'store'])->name('order.store'); //se usa post en la ruta store para almacenar registros nuevos
+    Route::put('/edit/{document}', [OrderController::class, 'update'])->name('order.update'); //se usa put en la ruta update para actualizar registros
+    Route::get('/destroy/{document}', [OrderController::class, 'destroy'])->name('order.destroy'); //se usa get en la ruta destroy para eliminar registros
+    Route::get('/add_activity/{order_id}/{activity_id}', [OrderController::class, 'add_activity'])->name('order.add_activity'); //se usa get en la ruta destroy para eliminar registros
+    Route::get('/remove/{order_id}/{activity_id}', [OrderController::class, 'remove_activity'])->name('order.remove_activity'); //se usa get en la ruta destroy para eliminar registros
+});
 
-Route::get('/type_activity/index', function () {
-    return view('type_activity.index');
-})->name('type_activity.index');
-
-Route::get('/type_activity/edit', function () {
-    return view('type_activity.edit');
-})->name('type_activity.edit');
-
-Route::get('/activity/create', function () {
-    return view('activity.create');
-})->name('activity.create');
-
-Route::get('/activity/index', function () {
-    return view('activity.index');
-})->name('activity.index');
-
-Route::get('/activity/edit', function () {
-    return view('activity.edit');
-})->name('activity.edit');
-
-Route::get('/technician/create', function () {
-    return view('technician.create');
-})->name('technician.create');
-
-Route::get('/technician/index', function () {
-    return view('technician.index');
-})->name('technician.index');
-
-Route::get('/technician/edit', function () {
-    return view('technician.edit');
-})->name('technician.edit');
-
-Route::get('/order/create', function () {
-    return view('order.create');
-})->name('order.create');
-
-Route::get('/order/index', function () {
-    return view('order.index');
-})->name('order.index');
-
-Route::get('/order/edit', function () {
-    return view('order.edit');
-})->name('order.edit');
 
 
 

@@ -15,32 +15,33 @@
             <table id="table_data" class="table table-striped table-hover">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Documento</th>
                         <th>Nombre</th>
                         <th>Especialidad</th>
                         <th>Teléfono</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @foreach ($technicians as $technician)
                     <tr>
-                        <td>1</td>
-                        <td>1116238765</td>
-                        <td>Andrés Felipe Escobar</td>
-                        <td>Programador</td>
-                        <td>3110085678</td>
+                        <td>{{ $technician['document'] }}</td>
+                        <td>{{ $technician['name'] }}</td>
+                        <td>{{ $technician['especiality'] }}</td>
+                        <td>{{ $technician['phone'] }}</td>
                         <td>
-                            <a href="#" title="editar" 
+                            <a href="{{ route('technician.edit', $technician['document']) }}" title="editar" 
                                 class="btn btn-info btn-circle btn-sm">
                                 <i class="far fa-edit"></i>
                             </a>
-                            <a href="#" title="eliminar" 
+                            <a href="{{ route('technician.destroy', $technician['document']) }}" title="eliminar" 
                                 class="btn btn-danger btn-circle btn-sm"
                                 onclick="return remove()">
                                 <i class="fas fa-trash"></i>
                             </a>
                         </td>
                     </tr>
+                    @endforeach
                 </tbody>
 
             </table>
