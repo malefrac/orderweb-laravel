@@ -9,9 +9,26 @@ use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class OrderController extends Controller
 {
+    private $rules = [
+        'legalization_date' => 'required|date|date_format:Y-m-d',
+        'addres' => 'required|string|max:50|min:3',
+        'city' => 'required|string|max:50|min:3',
+        'observation_id' => 'numeric',
+        'causal_id' => 'numeric'
+    ];
+
+    private $traductionAttributes = [
+        'legalization_date' => 'fecha de legalización',
+        'addres' => 'dirección',
+        'city' => 'ciudad',
+        'observation_id' => 'observación',
+        'causal_id' => 'causal'
+    ];
+
     /**
      * Display a listing of the resource.
      */
@@ -42,6 +59,13 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), $this->rules);
+        $validator->setAttributeNames($this->traductionAttributes);
+        if($validator->fails())
+        {
+            $errors = $validator->errors();
+            return redirect()->route('order.create')->withInput()->withErrors($errors);
+        }
         $order = Order::create($request->all());
         session()->flash('message', 'Registro creado exitosamente');
         return redirect()->route('order.index');
@@ -88,6 +112,14 @@ class OrderController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $validator = Validator::make($request->all(), $this->rules);
+        $validator->setAttributeNames($this->traductionAttributes);
+        if($validator->fails())
+        {
+            $errors = $validator->errors();
+            return redirect()->route('order.edit', $id)->withInput()->withErrors($errors);
+        }
+
         $order = Order::find($id);
         if($order)
         {
